@@ -13,7 +13,6 @@ function! s:convertpukiwiki()
     silent! %s/^h1\. \(.\+\)\n\+/* \1\r/
     silent! %s/^h2\. \(.\+\)\n\+/** \1\r/
     silent! %s/^h3\. \(.\+\)\n\+/*** \1\r/
-    silent! %s/^h3\. \(.\+\)\n\+/*** \1\r/
     silent! %s/{{toc}}/#contents/
     silent! %s/^!\([^!]\+\)!/\&ref(\1);/
 

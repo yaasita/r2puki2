@@ -5,7 +5,7 @@
 "
 " Version: 1.0
 " Maintainer:	yaasita < https://github.com/yaasita/r2puki2 >
-" Last Change:	2012/12/14.
+" Last Change:	2014/04/21.
 
 command! TOpukiwiki call <SID>convertpukiwiki()
 "Function: s:convertpukiwiki() {{{1
@@ -33,3 +33,29 @@ function! s:convertpukiwiki()
     endwhile
     silent! g/<\/\?pre>/d
 endfunction
+"}}}
+
+command! TOredmine call <SID>convertredmine()
+"Function: s:convertredmine() {{{1
+function! s:convertredmine()
+    " heading
+    silent! %s/\v^# (.+)/h1. \1\r/
+    silent! %s/\v^## (.+)/h2. \1\r/
+    silent! %s/\v^### (.+)/h3. \1\r/
+
+    " list
+    silent! %s/\v^(\-|\+) /* /
+    silent! %s/\v^    (\-|\+) /** /
+    silent! %s/\v^        (\-|\+) /*** /
+
+    " pre
+    silent! %s/\v^\n\s{4}(.+)/\r<pre>\r    \1/
+    silent! %s/\v^\s{4}(.+)\n\n/    \1\r<\/pre>\r\r/
+
+    " image
+    silent! %s/\v^!\[(.+)\]\((.+)\)/\r!\2!\r/
+
+    " quote
+    silent! %s/\v`(.{-})`/ *\1* /g
+endfunction
+"}}}

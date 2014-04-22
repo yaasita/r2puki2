@@ -14,7 +14,5 @@ Bundle 'yaasita/r2puki2'
 * 使い方
 以下のコマンドで実行現在開いているバッファを変換します
 :TOpukiwiki
+:TOredmine
 
-* ヘルプ
-まだ書いてない
-つーかいらないよね

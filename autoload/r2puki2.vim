@@ -3,33 +3,38 @@
 "
 " r2puki2.vim - Convert RedmineWiki to Pukiwiki
 "
-" Version: 1.0
+" Version: 0.1
 " Maintainer:	yaasita < https://github.com/yaasita/r2puki2 >
 " Last Change:	2014/04/24.
 
 function! r2puki2#s:convertpukiwiki() "{{{
-    silent! %s/^h1\. \(.\+\)\n\+/* \1\r/
-    silent! %s/^h2\. \(.\+\)\n\+/** \1\r/
-    silent! %s/^h3\. \(.\+\)\n\+/*** \1\r/
-    silent! %s/{{toc}}/#contents/
-    silent! %s/^!\([^!]\+\)!/\&ref(\1);/
+    if (&ft == "redmine")
+        " heading
+        silent! %s/^h1\. \(.\+\)\n\+/* \1\r/
+        silent! %s/^h2\. \(.\+\)\n\+/** \1\r/
+        silent! %s/^h3\. \(.\+\)\n\+/*** \1\r/
+        " index
+        silent! %s/{{toc}}/#contents/
+        " link
+        silent! %s/^!\([^!]\+\)!/\&ref(\1);/
+        " pre
+        let lnum = 1
+        let inpre = 0
+        while lnum <= line("$")
+            let cline = getline(lnum)
+            if ( match(cline,"<pre>") > -1 )
+                let inpre = 1
+            elseif ( match(cline,"</pre>") > -1 )
+                let inpre = 0
+            endif
 
-    let lnum = 1
-    let inpre = 0
-    while lnum <= line("$")
-        let cline = getline(lnum)
-        if ( match(cline,"<pre>") > -1 )
-            let inpre = 1
-        elseif ( match(cline,"</pre>") > -1 )
-            let inpre = 0
-        endif
-
-        if ( inpre == 1 )
-            exec lnum . "s/^/ /"
-        endif
-        let lnum += 1
-    endwhile
-    silent! g/<\/\?pre>/d
+            if ( inpre == 1 )
+                exec lnum . "s/^/ /"
+            endif
+            let lnum += 1
+        endwhile
+        silent! g/<\/\?pre>/d
+    endif
 endfunction "}}}
 function! r2puki2#s:convertredmine() "{{{
     if (&ft == "markdown")

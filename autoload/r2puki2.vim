@@ -5,7 +5,7 @@
 "
 " Version: 1.0
 " Maintainer:	yaasita < https://github.com/yaasita/r2puki2 >
-" Last Change:	2014/04/22.
+" Last Change:	2014/04/24.
 
 function! r2puki2#s:convertpukiwiki() "{{{
     silent! %s/^h1\. \(.\+\)\n\+/* \1\r/
@@ -46,6 +46,8 @@ function! r2puki2#s:convertredmine() "{{{
         silent! %s/\v^\s{4}(.+)\n\n/    \1\r<\/pre>\r\r/
         " image
         silent! %s/\v^!\[(.+)\]\((.+)\)/\r!\2!\r/
+        " link
+        silent! %s/\v^\[(.+)\]\((.+)\)/"\1":\2\r/
         " quote
         silent! %s/\v`(.{-})`/ *\1* /g
         set ft=redmine

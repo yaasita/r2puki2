@@ -5,7 +5,7 @@
 "
 " Version: 1.0
 " Maintainer:	yaasita < https://github.com/yaasita/r2puki2 >
-" Last Change:	2014/04/22.
+" Last Change:	2014/05/09.
 
-command! TOpukiwiki call r2puki2#s:convertpukiwiki()
-command! TOredmine call r2puki2#s:convertredmine()
+command! TOpukiwiki call r2puki2#convertpukiwiki()
+command! TOredmine call r2puki2#convertredmine()

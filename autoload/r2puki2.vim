@@ -3,11 +3,11 @@
 "
 " r2puki2.vim - Convert RedmineWiki to Pukiwiki
 "
-" Version: 0.1
+" Version: 0.2
 " Maintainer:	yaasita < https://github.com/yaasita/r2puki2 >
-" Last Change:	2014/04/24.
+" Last Change:	2014/05/09.
 
-function! r2puki2#s:convertpukiwiki() "{{{
+function! r2puki2#convertpukiwiki() "{{{
     if (&ft == "redmine")
         " heading
         silent! %s/^h1\. \(.\+\)\n\+/* \1\r/
@@ -36,8 +36,8 @@ function! r2puki2#s:convertpukiwiki() "{{{
         silent! g/<\/\?pre>/d
     endif
 endfunction "}}}
-function! r2puki2#s:convertredmine() "{{{
-    if (&ft == "markdown")
+function! r2puki2#convertredmine() "{{{
+    if (&ft == "markdown" || &ft == "mkd")
         " heading
         silent! %s/\v^# (.+)/h1. \1\r/
         silent! %s/\v^## (.+)/h2. \1\r/
